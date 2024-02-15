@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Sql Data Visualization</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        .container h1 {
+            text-align: center;
+            padding-bottom: 20px;
+        }
+
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    
+    
+    <div class="container">
+
+        <div class="chart">
+            {% include 'chart.html' %}
+        </div>
+        <!-- showing data part -->
+        <h1>Data Visualization (100 items per page)</h1>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Trade Code</th>
+                    <th>High</th>
+                    <th>Low</th>
+                    <th>Open</th>
+                    <th>Close</th>
+                    <th>Volume</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in page_obj %}
+                <tr>
+                    <td>{{ item.date }}</td>
+                    <td>{{ item.trade_code }}</td>
+                    <td>{{ item.high }}</td>
+                    <td>{{ item.low }}</td>
+                    <td>{{ item.open }}</td>
+                    <td>{{ item.close }}</td>
+                    <td>{{ item.volume }}</td>
+                    <td><a href="{% url 'updatestock' item.id %}" class="btn btn-sm btn-outline-success">Update</a> <a
+                            href="#stockModel{{item.id}}" data-bs-target="#stockModel{{item.id}}" data-bs-toggle="modal"
+                            class="btn btn-sm btn-outline-danger">Delete</a> <a href="{% url 'singlestock' item.id %}"
+                            class="btn btn-sm btn-outline-primary">View</a></td>
+                </tr>
+
+                <div class="modal fade" id="stockModel{{item.id}}" aria-hidden="true"
+                    aria-labelledby="stockModalToggleLabel" tabindex="-1">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <div>
+                                    <h1 class="modal-title fs-5" id="stockModalToggleLabel"> Are you sure, you want to
+                                        delete this stock?</h1>
+                                    <ul class="list-inline-item">
+                                        <li class="list-inline-item">
+                                            <button type="button" class="btn btn-secondary"
+                                                data-bs-dismiss="modal">Close</button>
+                                        </li>
+                                        <li class="list-inline-item">
+                                            <a href="{% url 'deletestock' item.id %}" class="btn btn-danger">Delete</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                {% endfor %}
+            </tbody>
+        </table>
+
+    </div>
+
+    <!-- paginator code -->
+    {% if page_obj.has_other_pages %}
+    <div class="pagination">
+        <span class="step-links">
+            {% if page_obj.has_previous %}
+            <a href="?page=1" class="btn btn-primary mx-2">&laquo; first</a>
+            <a href="?page={{ page_obj.previous_page_number }} " class="btn btn-primary mx-2">previous</a>
+            {% endif %}
+
+            <span class="current">
+                Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+            </span>
+
+            {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}" class="btn btn-primary mx-2">next</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}" class="btn btn-primary mx-2">last &raquo;</a>
+            {% endif %}
+        </span>
+    </div>
+    {% endif %}
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

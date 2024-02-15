@@ -1,0 +1,68 @@
+ <!DOCTYPE html>
+    <html>
+    
+    <head>
+        <title>Update Data</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+            integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+        <style>
+            .container h1 {
+                text-align: center;
+                padding-bottom: 20px;
+            }
+            .pagination{
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                padding: 10px;
+            }
+        </style>
+    </head>
+    
+    <body>
+        <div class="container w-50">
+            <h1>Update Data</h1>
+            <form class="form-control" action="{% url 'updatestock' item.id %}" method="POST">
+                {% csrf_token %}
+
+                <div class="mb-3">
+                  <label for="exampleInputDate" class="form-label">Date</label>
+                  <input type="date" name="date" class="form-control" id="exampleInputDate" aria-describedby="datelHelp" value= "{{ item.date | date:'Y-m-d' }}" >
+                </div>
+
+                <div class="mb-3">
+                  <label for="exampleInputTradeCode" class="form-label">Trade Code</label>
+                  <input type="text" name="trade_code" class="form-control" id="exampleInputTradeCode" value="{{ item.trade_code }}">
+                </div>
+                <div class="mb-3">
+                    <label for="exampleInputHigh" class="form-label">High</label>
+                    <input type="text" name="high" class="form-control" id="exampleInputHigh" value="{{ item.high }}">
+                  </div>
+                  <div class="mb-3">
+                    <label for="exampleInputLow" class="form-label">Low</label>
+                    <input type="text" name="low" class="form-control" id="exampleInputLow" value="{{ item.low }}">
+                  </div>
+                  <div class="mb-3">
+                    <label for="exampleInputOpen" class="form-label">Open</label>
+                    <input type="text" name="open" class="form-control" id="exampleInputOpen" value="{{ item.open }}">
+                  </div>
+                  <div class="mb-3">
+                    <label for="exampleInputClose" class="form-label">Close</label>
+                    <input type="text" name="close" class="form-control" id="exampleInputClose" value="{{ item.close }}">
+                  </div>
+                  <div class="mb-3">
+                    <label for="exampleInputVolume" class="form-label">Volume</label>
+                    <input type="text" name="volume" class="form-control" id="exampleInputVolume" value="{{ item.volume }}">
+                  </div>
+                  <div class="container text-center mt-2">
+                    <button type="submit" class="btn btn-sm btn-outline-primary">Update</button>
+                  </div>
+              </form>
+        </div>
+    
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+            crossorigin="anonymous"></script>
+    </body>
+    
+    </html>

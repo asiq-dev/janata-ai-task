@@ -1,0 +1,4 @@
+jsonModel/.venv/
+sqlModel/.venv/
+sqlModel/__pycache__/
+sqlModel/__pycache__/

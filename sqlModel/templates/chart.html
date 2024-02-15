@@ -1,0 +1,33 @@
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<div class="mix-chart">
+    <h3 style="text-align: center;">Mixed Chart </h3> 
+    <div> 
+        <canvas id="mixedChartID" width="300" height="100"></canvas> 
+    </div> 
+    <script> 
+        var mychart = document.getElementById( 
+            "mixedChartID").getContext("2d"); 
+       new Chart(mychart, { 
+           type: 'bar',             
+           data: { 
+               datasets: [{ 
+                   label: 'Volume', 
+                   data: [{% for row in page_obj %} "{{ row.volume }}", {% endfor %}], 
+                   borderColor:"green", 
+                   borderWidth:2                     
+                   }, { 
+                   label: 'close', 
+                   data: [{% for row in page_obj %} "{{ row.close }}", {% endfor %}], 
+                   type: 'line',
+                   borderColor:"#68BAF1",  
+                   fill:true, 
+                   borderWidth: 1
+                   
+                     
+               }],//end data sets 
+               labels: [{% for row in page_obj %} "{{ row.date }}", {% endfor %}] 
+           }//end data             
+       }); 
+   </script> 
+</div>

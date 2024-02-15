@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>sql Data Visualization</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <style>
+        .container h1 {
+            text-align: center;
+            padding-bottom: 20px;
+        }
+        .pagination{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Single Data Visualization</h1>
+            <a href="{% url 'home'%}" class="btn btn-sm btn-outline-primary text-decoration-none">All Stocks</a>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Trade Code</th>
+                    <th>High</th>
+                    <th>Low</th>
+                    <th>Open</th>
+                    <th>Close</th>
+                    <th>Volume</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{ item.date }}</td>
+                    <td>{{ item.trade_code }}</td>
+                    <td>{{ item.high }}</td>
+                    <td>{{ item.low }}</td>
+                    <td>{{ item.open }}</td>
+                    <td>{{ item.close }}</td>
+                    <td>{{ item.volume }}</td>
+                    <td><a href="{% url 'updatestock' item.id %}" class="btn btn-sm btn-outline-success">Update</a> <a href="{% url 'deletestock' item.id %}" class="btn btn-sm btn-outline-danger">Delete</a></td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
